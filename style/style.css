@@ -13,3 +13,16 @@
   align-items: center;
   flex-direction: column;
 }
+
+.album-list {
+  padding: 0px;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.album-card {
+  width: 250px;
+  margin: 5px 5px;
+}

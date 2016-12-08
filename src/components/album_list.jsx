@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
+import Album from './album';
 
 class AlbumList extends Component {
   renderList(album) {
     return(
-      <li key={album.collectionId}>{album.collectionName}</li>
+      <Album key={album.collectionId} album={album} />
     );
   }
 
   render() {
     return (
-      <div className="album-list">
-        <ul>
-          {this.props.albums.map(this.renderList)}
-        </ul>
-      </div>
+      <ul className="album-list">
+        {this.props.albums.map(this.renderList)}
+      </ul>
     );
   }
 }
