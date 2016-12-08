@@ -16,7 +16,7 @@ class Home extends Component {
         </div>
         <div>
         <RaisedButton
-          label={`View Wishlist (${this.props.wishlist.length})`}
+          label={`View Wishlist (${Object.keys(this.props.wishlist).length})`}
           secondary={true}
           className="home-button"
           containerElement={<Link to="wishlist" />} />

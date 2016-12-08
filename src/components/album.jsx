@@ -11,26 +11,49 @@ class Album extends Component {
     this.props.addToWishlist(this.props.album);
   }
 
-  render() {
-    const album = this.props.album;
-    return (
-      <Card className="album-card">
-       <CardMedia>
-         <img src={album.artworkUrl100} />
-       </CardMedia>
-       <CardTitle
-        title={album.collectionName}
-        subtitle={album.artistName} />
-       <CardActions>
+  handleRemoveFromWishlist() {
+    this.props.removeFromWishlist(this.props.album);
+  }
+
+  renderButton() {
+    if (this.props.wishlist[this.props.album.collectionId]) {
+      return (
+        <RaisedButton
+          label="- Remove from Wishlist" 
+          fullWidth={true}
+          onClick={this.handleRemoveFromWishlist.bind(this)} />
+      );
+    } else {
+      return(
         <RaisedButton
           primary={true}
           label="+ Add to Wishlist"
           fullWidth={true}
           onClick={this.handleAddToWishlist.bind(this)} />
-       </CardActions>
-     </Card>
+      );
+    }
+  }
+
+  render() {
+    const album = this.props.album;
+    return (
+      <Card className="album-card">
+        <CardMedia>
+          <img src={album.artworkUrl100} />
+        </CardMedia>
+          <CardTitle
+          title={album.collectionName}
+          subtitle={album.artistName} />
+        <CardActions>
+          {this.renderButton()}
+        </CardActions>
+      </Card>
     );
   }
 }
 
-export default connect(null, actions)(Album);
+function mapStateToProps(state) {
+  return { wishlist: state.wishlist }
+}
+
+export default connect(mapStateToProps, actions)(Album);
