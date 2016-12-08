@@ -41,6 +41,7 @@ export default class SearchContainer extends Component {
           label="< Back"
           secondary={true}
           containerElement={<Link to='/' />} />
+        <h1>Search</h1>
         <form className="search-form" onSubmit={this.handleFormSubmit.bind(this)}>
           <TextField
             floatingLabelText="Search for artists, albums, etc..."
