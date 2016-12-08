@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
+import jsonp from 'jsonp';
+
+// Material UI components
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Link } from 'react-router';
 
-class SearchContainer extends Component {
+// Components
+import AlbumList from '../components/album_list';
+
+export default class SearchContainer extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { term: '' };
+    this.state = { term: '', search_results: [] };
   }
 
   handleInputChange(e) {
@@ -17,7 +23,15 @@ class SearchContainer extends Component {
 
   handleFormSubmit(e) {
     e.preventDefault();
-    console.log(this.state.term);
+    
+    const request_url = `https://itunes.apple.com/search?term=${this.state.term}&media=music&entity=album&limit=25`;
+    jsonp(request_url, null, (err, data) => {
+      if (err) {
+        console.log("Request error: ", err);
+      } else {
+        this.setState({ search_results: data.results });
+      }
+    });
   }
 
   render() {
@@ -37,9 +51,8 @@ class SearchContainer extends Component {
             secondary={true}
             type="submit" />
         </form>
+        <AlbumList albums={this.state.search_results}/>
       </div>
     );
   }
 }
-
-export default SearchContainer;
